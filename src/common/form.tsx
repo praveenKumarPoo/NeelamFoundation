@@ -6,7 +6,8 @@ import { motion } from 'framer-motion'
 import { z } from 'zod'
 import { FormDataSchema } from '@/lib/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler  } from 'react-hook-form'
+import axios from 'axios'
 
 type Inputs = z.infer<typeof FormDataSchema>
 
@@ -28,11 +29,13 @@ const steps = [
 
 let baseUrl = `https://chipper-toffee-e75e3f.netlify.app/.netlify/functions/api`
 let localUrl = `http://localhost:8888/.netlify/functions/api`;
-//baseUrl = localUrl;
+baseUrl = localUrl;
 
 export default function Form() {
+  const [profileImage, setProfileImage] = useState('')
   const [previousStep, setPreviousStep] = useState(0)
   const [currentStep, setCurrentStep] = useState(0)
+  const [finalData , setFinalData] = useState({})
   const delta = currentStep - previousStep
 
   const {
@@ -46,16 +49,15 @@ export default function Form() {
     resolver: zodResolver(FormDataSchema)
   })
 
+  const finalSubmit = async (finalData: {}) => {
+     axios.post(`${baseUrl}/add_new_neelam_user`, { newUserData: {imageUrl : profileImage, ...finalData }}).then((res)=>{
+      alert(res)
+     })
+  }
+
   const processForm: SubmitHandler<Inputs> = async (data) => {
-    await fetch(`${baseUrl}/add_new_neelam_user`, {
-      method: "POST",
-      body: JSON.stringify({ newUserData: data }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8"
-      }
-    }).then((res) => {
-      console.log(res.json())
-    });
+    
+    finalSubmit(data)
     console.log("static",data)
     reset()
   }
@@ -65,7 +67,7 @@ export default function Form() {
   const next = async () => {
     const fields = steps[currentStep].fields
     const output = await trigger(fields as FieldName[], { shouldFocus: true })
-
+    console.log()
     if (!output) return
 
     if (currentStep < steps.length - 1) {
@@ -81,6 +83,14 @@ export default function Form() {
     if (currentStep > 0) {
       setPreviousStep(currentStep)
       setCurrentStep(step => step - 1)
+    }
+  }
+
+  const FileOnchange = (event: any) =>{
+    const imageReader:  FileReader = new FileReader();
+    imageReader.readAsDataURL(event.target.files[0]);
+    imageReader.onloadend = () =>{
+      setProfileImage(imageReader.result)
     }
   }
 
@@ -186,7 +196,7 @@ export default function Form() {
                 </div>
               </div>
 
-              <div className='sm:col-span-4'>
+              <div className='sm:col-span-3'>
                 <label
                   htmlFor='email'
                   className='block text-sm font-medium leading-6 text-gray-900'
@@ -205,6 +215,27 @@ export default function Form() {
                   {errors.email?.message && (
                     <p className='mt-2 text-sm text-red-400'>
                       {errors.email.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+              <div className='sm:col-span-3'>
+                <label
+                  htmlFor='email'
+                  className='block text-sm font-medium leading-6 text-gray-900'
+                >
+                  {/* Email address */}
+                  Image Upload
+                </label>
+                <div className='mt-2'>
+                  <input
+                    type='file'
+                    onChange={FileOnchange}
+                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
+                  />
+                  {(
+                    <p className='mt-2 text-sm text-red-400'>
+                      <img src={profileImage} width={200} height={200} />
                     </p>
                   )}
                 </div>
@@ -357,6 +388,7 @@ export default function Form() {
 
         {currentStep === 2 && (
           <>
+            
             <h2 className='text-base font-semibold leading-7 text-gray-900'>
               {/* Completed */}
               நிறைவடைந்தது
