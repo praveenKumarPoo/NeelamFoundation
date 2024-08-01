@@ -15,60 +15,65 @@ const modelData = (mData: {}[]) => {
   })
 }
 
+let baseUrl = `https://chipper-toffee-e75e3f.netlify.app/.netlify/functions/api`
+let localUrl = `http://localhost:8888/.netlify/functions/api`;
+//baseUrl = localUrl;
 
 
 function App() {
 
   const [data, setData] = useState<{ [key: string]: any }>([]);
   const getData = async () => {
-    let baseUrl = `https://chipper-toffee-e75e3f.netlify.app/.netlify/functions/api`;
-    await fetch(`${baseUrl}/list`).then((response) => response.json()).then((data) => {
-      console.log(data);
+    await fetch(`${baseUrl}/neelam_user_list`).then((response) => response.json()).then((data) => {
+      // console.log(data);
+      // let CloneData = [...data];
+      // let updateRegNo = 0;
+      // let notpaidCustomer = [];
+      // let inactiveCustomer = []
+      // CloneData.map((row, index) => {
+      //   updateRegNo = Math.max(updateRegNo, row["Reg No:"] || 0)
+      //   let date1 = new Date(row["DUE DATE"])
+      //   if (!row["DUE DATE"]) {
+      //     row["DUE DATE"] = add(new Date(row["lastUpdateDateTime"]), {
+      //       months: row["Fees Options"]
+      //     }).valueOf();
+      //     date1 = new Date(row["DUE DATE"])
+      //   }
+      //   const date2 = new Date();
+      //   const daysDiff = differenceInDays(
+      //     new Date(date1),
+      //     new Date(date2)
+      //   )
+      //   const rowColor = isNaN(daysDiff) || daysDiff < -90 ? "#f0f0b7" : (daysDiff >= -90 && daysDiff <= 0) ? "#f47979" : "#2afc0094";
+      //   //const rowColor = isNaN(date2 - date1) || (date2 - date1 > 0 && diffDays > 90) ? "#f0f0b7" : (date2 - date1) > 0 ? "#f47979" : "#2afc0094";
+      //   CloneData[index] = {
+      //     ...CloneData[index],
+      //     expiredDays: Math.abs(daysDiff),
+      //     rowColor,
+      //     inValidList: rowColor === "#f0f0b7",
+      //     FeedueDate: row["DUE DATE"] ? format(new Date(row["DUE DATE"]), 'dd/MM/yyyy') : ""
+      //   }
+      //   if (rowColor === "#f47979") {
+      //     notpaidCustomer.push(CloneData[index]);
+      //   };
+      //   if (rowColor === "#f0f0b7") {
+      //     inactiveCustomer.push(CloneData[index]);
+      //   };
+      // });
+      // let overAllData = [...CloneData];
+      // CloneData = CloneData.filter(({ inValidList }) => !inValidList);
+      // console.log(CloneData.sort((a, b) => a["Reg No:"] - b["Reg No:"]))
+      //setData(modelData(CloneData));
       let CloneData = [...data];
-      let updateRegNo = 0;
-      let notpaidCustomer = [];
-      let inactiveCustomer = []
-      CloneData.map((row, index) => {
-        updateRegNo = Math.max(updateRegNo, row["Reg No:"] || 0)
-        let date1 = new Date(row["DUE DATE"])
-        if (!row["DUE DATE"]) {
-          row["DUE DATE"] = add(new Date(row["lastUpdateDateTime"]), {
-            months: row["Fees Options"]
-          }).valueOf();
-          date1 = new Date(row["DUE DATE"])
-        }
-        const date2 = new Date();
-        const daysDiff = differenceInDays(
-          new Date(date1),
-          new Date(date2)
-        )
-        const rowColor = isNaN(daysDiff) || daysDiff < -90 ? "#f0f0b7" : (daysDiff >= -90 && daysDiff <= 0) ? "#f47979" : "#2afc0094";
-        //const rowColor = isNaN(date2 - date1) || (date2 - date1 > 0 && diffDays > 90) ? "#f0f0b7" : (date2 - date1) > 0 ? "#f47979" : "#2afc0094";
-        CloneData[index] = {
-          ...CloneData[index],
-          expiredDays: Math.abs(daysDiff),
-          rowColor,
-          inValidList: rowColor === "#f0f0b7",
-          FeedueDate: row["DUE DATE"] ? format(new Date(row["DUE DATE"]), 'dd/MM/yyyy') : ""
-        }
-        if (rowColor === "#f47979") {
-          notpaidCustomer.push(CloneData[index]);
-        };
-        if (rowColor === "#f0f0b7") {
-          inactiveCustomer.push(CloneData[index]);
-        };
-      });
-      let overAllData = [...CloneData];
-      CloneData = CloneData.filter(({ inValidList }) => !inValidList);
-      console.log(CloneData.sort((a, b) => a["Reg No:"] - b["Reg No:"]))
-      setData(modelData(CloneData));
+      setData(CloneData);
     });
   }
   useEffect(() => {
     getData();
   }, [])
   const columns = React.useMemo(() => {
-    return ["regno:", "name", "phonenumber", "feeduedate"].map((columnName) => {
+    //return ["regno:", "name", "phonenumber", "feeduedate"].map((columnName) => {
+    return ["firstName", "lastName", "email", "country", "state"].map((columnName) => {
       return {
         Header: columnName,
         accessor: columnName

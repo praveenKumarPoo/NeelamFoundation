@@ -24,7 +24,11 @@ const steps = [
     fields: ['country', 'state', 'city', 'street', 'zip']
   },
   { id: 'Step 3', name: 'Complete' }
-]
+];
+
+let baseUrl = `https://chipper-toffee-e75e3f.netlify.app/.netlify/functions/api`
+let localUrl = `http://localhost:8888/.netlify/functions/api`;
+//baseUrl = localUrl;
 
 export default function Form() {
   const [previousStep, setPreviousStep] = useState(0)
@@ -42,8 +46,17 @@ export default function Form() {
     resolver: zodResolver(FormDataSchema)
   })
 
-  const processForm: SubmitHandler<Inputs> = data => {
-    console.log(data)
+  const processForm: SubmitHandler<Inputs> = async (data) => {
+    await fetch(`${baseUrl}/add_new_neelam_user`, {
+      method: "POST",
+      body: JSON.stringify({ newUserData: data }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    }).then((res) => {
+      console.log(res.json())
+    });
+    console.log("static",data)
     reset()
   }
 
