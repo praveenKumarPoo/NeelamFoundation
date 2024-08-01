@@ -1,9 +1,9 @@
 'use client'
-import {useTranslations} from 'next-intl';
+//import {useTranslations} from 'next-intl';
 import "./globals.css";
 
 export default function Home () {
-  const t = useTranslations('Header');
+  // const t = useTranslations('Header');
   return(
     <div className="relative isolate px-6 pt-14 lg:px-8">
     <div
@@ -30,10 +30,12 @@ export default function Home () {
       </div>
       <div className="text-center">
         <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-          {t("title")}
+          {'நீலம் பண்பாட்டு மையம்'}
+          {/* {t("title")} */}
         </h1>
         <p className="mt-6 text-lg leading-8 text-gray-600">
-          {t('briyani_description')}
+          {'நீலம் கலாச்சார மையம் என்பது வானத்தின் கீழ் உள்ள அனைத்து மக்களுக்கும் சமத்துவத்திற்காக செயல்படும் ஒரு மன்றமாகும், மேலும் அடித்தட்டு மக்களின் கலாச்சாரம் மற்றும் வாழ்க்கை முறையை மைய நீரோட்ட சமூகத்தில் கொண்டு வருவதற்கும் பணியாற்றுகிறது.ஜெய்பீம்... 💙✊'}
+          {/* {t('briyani_description')} */}
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
           <a

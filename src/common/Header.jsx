@@ -1,5 +1,15 @@
 'use client'
-import {useTranslations} from 'next-intl';
+// import {useTranslations} from 'next-intl';
+const TamilTransulation ={
+    "Header": {
+      "title": "நீலம் பண்பாட்டு மையம்",
+      "Product": "விளைபொருள்",
+      "Features": "அம்சங்கள்",
+      "Registation": "சந்தை",
+      "Company": "நிறுவனம்",
+      "briyani_description": "பிரியாணி என்பது வெறும் உணவு மட்டுமல்ல; இது ஒரு தட்டில் ஒரு கொண்டாட்டம். இந்த காஸ்ட்ரோனமிக் பயணத்தைத் தொடங்கும்போது, ஒவ்வொரு நறுமணக் கடியின் சாரத்தையும் கைப்பற்றும் வசீகரிக்கும் தலைப்புகள் மூலம் பிரியாணியின் உலகத்தை ஆராய்வோம்."
+    }
+  }
 const navigation = [
     { name: 'Product', href: './product' },
     { name: 'Features', href: './features' },
@@ -8,7 +18,7 @@ const navigation = [
   ]
 
 function Header() {
-    const t = useTranslations('Header');
+    const t = TamilTransulation['Header'];
     return (
         <div>  <header className="absolute inset-x-0 top-0 z-50">
             <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
@@ -35,7 +45,7 @@ function Header() {
                 <div className="hidden lg:flex lg:gap-x-12">
                     {navigation.map((item) => (
                         <a key={item.name} href={item.href} className="text-sm font-semibold leading-8 text-white">
-                            {t(item.name)}
+                            {t[item.name]}
                         </a>
                     ))}
                 </div>
