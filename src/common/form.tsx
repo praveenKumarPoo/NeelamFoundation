@@ -13,12 +13,14 @@ type Inputs = z.infer<typeof FormDataSchema>
 const steps = [
   {
     id: 'Step 1',
-    name: 'Personal Information',
+    // name: 'Personal Information',
+    name: 'தனிப்பட்ட தகவல்',
     fields: ['firstName', 'lastName', 'email']
   },
   {
     id: 'Step 2',
-    name: 'Address',
+    // name: 'Address',
+    name: 'முகவரி',
     fields: ['country', 'state', 'city', 'street', 'zip']
   },
   { id: 'Step 3', name: 'Complete' }
@@ -70,7 +72,7 @@ export default function Form() {
   }
 
   return (
-    <section className='absolute inset-0 flex flex-col justify-between p-24 bg-gradient-to-b from-indigo-950 to-white via-indigo-300'>
+    <section className='absolute inset-0 flex flex-col justify-between p-24 bg-gradient-to-b from-indigo-950 to-white via-indigo-200'>
       {/* steps */}
       <nav aria-label='Progress'>
         <ol role='list' className='space-y-4 md:flex md:space-x-8 md:space-y-0'>
@@ -107,7 +109,7 @@ export default function Form() {
       </nav>
 
       {/* Form */}
-      <form className='mt-12 py-12' onSubmit={handleSubmit(processForm)}>
+      <form className='mt-1 py-12' onSubmit={handleSubmit(processForm)}>
         {currentStep === 0 && (
           <motion.div
             initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
@@ -115,10 +117,12 @@ export default function Form() {
             transition={{ duration: 0.3, ease: 'easeInOut' }}
           >
             <h2 className='text-base font-semibold leading-7 text-gray-900'>
-              Personal Information
+            தனிப்பட்ட தகவல்
+              {/* Personal Information */}
             </h2>
             <p className='mt-1 text-sm leading-6 text-gray-600'>
-              Provide your personal details.
+            உங்கள் தனிப்பட்ட விவரங்களை வழங்கவும்.
+              {/* Provide your personal details. */}
             </p>
             <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
               <div className='sm:col-span-3'>
@@ -126,7 +130,8 @@ export default function Form() {
                   htmlFor='firstName'
                   className='block text-sm font-medium leading-6 text-gray-900'
                 >
-                  First name
+                  {/* First name */}
+                  முதல் பெயர்
                 </label>
                 <div className='mt-2'>
                   <input
@@ -134,7 +139,7 @@ export default function Form() {
                     id='firstName'
                     {...register('firstName')}
                     autoComplete='given-name'
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
+                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                   />
                   {errors.firstName?.message && (
                     <p className='mt-2 text-sm text-red-400'>
@@ -149,7 +154,8 @@ export default function Form() {
                   htmlFor='lastName'
                   className='block text-sm font-medium leading-6 text-gray-900'
                 >
-                  Last name
+                  {/* Last name */}
+                  கடைசி பெயர்
                 </label>
                 <div className='mt-2'>
                   <input
@@ -157,7 +163,7 @@ export default function Form() {
                     id='lastName'
                     {...register('lastName')}
                     autoComplete='family-name'
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
+                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                   />
                   {errors.lastName?.message && (
                     <p className='mt-2 text-sm text-red-400'>
@@ -172,7 +178,8 @@ export default function Form() {
                   htmlFor='email'
                   className='block text-sm font-medium leading-6 text-gray-900'
                 >
-                  Email address
+                  {/* Email address */}
+                  மின்னஞ்சல் முகவரி
                 </label>
                 <div className='mt-2'>
                   <input
@@ -180,7 +187,7 @@ export default function Form() {
                     type='email'
                     {...register('email')}
                     autoComplete='email'
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
+                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                   />
                   {errors.email?.message && (
                     <p className='mt-2 text-sm text-red-400'>
@@ -200,10 +207,12 @@ export default function Form() {
             transition={{ duration: 0.3, ease: 'easeInOut' }}
           >
             <h2 className='text-base font-semibold leading-7 text-gray-900'>
-              Address
+              {/* Address */}
+              முகவரி
             </h2>
             <p className='mt-1 text-sm leading-6 text-gray-600'>
-              Address where you can receive mail.
+              {/* Address where you can receive mail. */}
+              நீங்கள் அஞ்சலைப் பெறக்கூடிய முகவரி.
             </p>
 
             <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
@@ -212,16 +221,17 @@ export default function Form() {
                   htmlFor='country'
                   className='block text-sm font-medium leading-6 text-gray-900'
                 >
-                  Country
+                  {/* Country */}
+                  நாடு
                 </label>
                 <div className='mt-2'>
                   <select
                     id='country'
                     {...register('country')}
                     autoComplete='country-name'
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6'
+                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-500 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6'
                   >
-                    <option>United States</option>
+                    <option>India</option>
                     <option>Canada</option>
                     <option>Mexico</option>
                   </select>
@@ -238,7 +248,8 @@ export default function Form() {
                   htmlFor='street'
                   className='block text-sm font-medium leading-6 text-gray-900'
                 >
-                  Street address
+                  {/* Street address */}
+                  தெரு முகவரி
                 </label>
                 <div className='mt-2'>
                   <input
@@ -246,7 +257,7 @@ export default function Form() {
                     id='street'
                     {...register('street')}
                     autoComplete='street-address'
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
+                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                   />
                   {errors.street?.message && (
                     <p className='mt-2 text-sm text-red-400'>
@@ -261,7 +272,8 @@ export default function Form() {
                   htmlFor='city'
                   className='block text-sm font-medium leading-6 text-gray-900'
                 >
-                  City
+                  {/* City */}
+                  நகரம்
                 </label>
                 <div className='mt-2'>
                   <input
@@ -269,7 +281,7 @@ export default function Form() {
                     id='city'
                     {...register('city')}
                     autoComplete='address-level2'
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
+                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                   />
                   {errors.city?.message && (
                     <p className='mt-2 text-sm text-red-400'>
@@ -284,7 +296,8 @@ export default function Form() {
                   htmlFor='state'
                   className='block text-sm font-medium leading-6 text-gray-900'
                 >
-                  State / Province
+                  {/* State / Province */}
+                  நிலை / மாகாணம்
                 </label>
                 <div className='mt-2'>
                   <input
@@ -292,7 +305,7 @@ export default function Form() {
                     id='state'
                     {...register('state')}
                     autoComplete='address-level1'
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
+                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                   />
                   {errors.state?.message && (
                     <p className='mt-2 text-sm text-red-400'>
@@ -307,7 +320,8 @@ export default function Form() {
                   htmlFor='zip'
                   className='block text-sm font-medium leading-6 text-gray-900'
                 >
-                  ZIP / Postal code
+                  {/* ZIP / Postal code */}
+                  ஜிப் / அஞ்சல் குறியீடு
                 </label>
                 <div className='mt-2'>
                   <input
@@ -315,7 +329,7 @@ export default function Form() {
                     id='zip'
                     {...register('zip')}
                     autoComplete='postal-code'
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
+                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                   />
                   {errors.zip?.message && (
                     <p className='mt-2 text-sm text-red-400'>
@@ -331,10 +345,12 @@ export default function Form() {
         {currentStep === 2 && (
           <>
             <h2 className='text-base font-semibold leading-7 text-gray-900'>
-              Complete
+              {/* Completed */}
+              நிறைவடைந்தது
             </h2>
             <p className='mt-1 text-sm leading-6 text-gray-600'>
-              Thank you for your submission.
+              {/* Thank you for your submission. */}
+              உங்கள் சமர்ப்பிப்புக்கு நன்றி.
             </p>
           </>
         )}
