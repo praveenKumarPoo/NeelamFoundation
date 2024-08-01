@@ -29,7 +29,7 @@ const steps = [
 
 let baseUrl = `https://chipper-toffee-e75e3f.netlify.app/.netlify/functions/api`
 let localUrl = `http://localhost:8888/.netlify/functions/api`;
-baseUrl = localUrl;
+//gbaseUrl = localUrl;
 
 export default function Form() {
   const [profileImage, setProfileImage] = useState<any>('')
@@ -50,7 +50,7 @@ export default function Form() {
 
   const finalSubmit = async (finalData: {}) => {
      axios.post(`${baseUrl}/add_new_neelam_user`, { newUserData: {imageUrl : profileImage, ...finalData }}).then((res)=>{
-      alert(res)
+      alert("uploaded successfully")
      })
   }
 
