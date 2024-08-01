@@ -64,7 +64,12 @@ function App() {
       // CloneData = CloneData.filter(({ inValidList }) => !inValidList);
       // console.log(CloneData.sort((a, b) => a["Reg No:"] - b["Reg No:"]))
       //setData(modelData(CloneData));
-      let CloneData = [...data];
+      let CloneData = [...data].map(item=>{
+        return{
+          ...item,
+          imgUrl: item.image ? item.image.publicUrl : 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60' 
+        }
+      });
       setData(CloneData);
     });
   }
@@ -73,12 +78,20 @@ function App() {
   }, [])
   const columns = React.useMemo(() => {
     //return ["regno:", "name", "phonenumber", "feeduedate"].map((columnName) => {
-    return ["firstName", "lastName", "email", "country", "state"].map((columnName) => {
+    return [
+      {
+        Header: "Name",
+        accessor: 'firstName',
+        Cell: AvatarCell,
+        imgAccessor: "imgUrl",
+        emailAccessor: "email",
+      },
+      ...["lastName", "email", "country", "state"].map((columnName) => {
       return {
         Header: columnName,
         accessor: columnName
       }
-    })
+    })]
   }, []);
   console.log(columns)
   // const columns1 = React.useMemo(() => [

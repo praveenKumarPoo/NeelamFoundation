@@ -32,10 +32,9 @@ let localUrl = `http://localhost:8888/.netlify/functions/api`;
 baseUrl = localUrl;
 
 export default function Form() {
-  const [profileImage, setProfileImage] = useState('')
+  const [profileImage, setProfileImage] = useState<any>('')
   const [previousStep, setPreviousStep] = useState(0)
   const [currentStep, setCurrentStep] = useState(0)
-  const [finalData , setFinalData] = useState({})
   const delta = currentStep - previousStep
 
   const {
