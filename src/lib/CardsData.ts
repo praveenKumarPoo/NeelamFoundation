@@ -1,44 +1,44 @@
 export const cardsData = [
     {
       id: 0,
-      title: "Component Librarys",
+      title: "Billing",
       components: [
         {
           id: 100,
-          name: "material ui"
+          name: "cooking briyani"
         },
         {
           id: 200,
-          name: "bootstrap"
+          name: "Dosai"
+        },
+        {
+          id: 500,
+          name: "veg meal"
+        },
+        {
+          id: 600,
+          name: "parota"
         },
       ]
     },
     {
       id: 1,
-      title: "Javascript Librarys",
+      title: "Kitchen inprogress",
       components: [
         {
           id: 300,
-          name: "react"
+          name: "Rice"
         },
         {
           id: 400,
-          name: "node"
+          name: "veg Meal"
         },
       ]
     },
     {
       id: 2,
-      title: "react helping Librarys",
+      title: "Order Ready",
       components: [
-        {
-          id: 500,
-          name: "redux"
-        },
-        {
-          id: 600,
-          name: "recoil"
-        },
       ]
     }
   
