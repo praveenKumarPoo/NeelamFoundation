@@ -1,7 +1,7 @@
 export const cardsData = [
     {
       id: 0,
-      title: "Billing",
+      title: "Order Taken",
       components: [
         {
           id: 100,

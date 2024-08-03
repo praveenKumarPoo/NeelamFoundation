@@ -5,6 +5,8 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Header from '../common/Header';
+import Providers from './StoreProvider';
+
 
 
 
@@ -27,11 +29,13 @@ export default async function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
+        <Providers>
         {/* <NextIntlClientProvider messages={messages}> */}
           <div className="h-full bg-gradient-to-b from-indigo-950 to-white via-indigo-300">
             <Header />
             {children}
           </div>
+          </Providers>
         {/* </NextIntlClientProvider> */}
       </body>
     </html>

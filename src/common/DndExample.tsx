@@ -1,6 +1,6 @@
 "use client"
 
-import { cardsData } from "../lib/CardsData";
+//import { cardsData } from "../lib/CardsData";
 import { useEffect, useState } from "react";
 import { Draggable, DropResult, Droppable } from "react-beautiful-dnd";
 import LoadingSkeleton from "./LoadingSkeleton";
@@ -13,7 +13,8 @@ interface Cards {
         name: string;
     }[];
 }
-const DndExample = () => {
+const DndExample = (props) => {
+
     const [data, setData] = useState<Cards[] | []>([])
     const onDragEnd = (result: DropResult) => {
         const { source, destination } = result;
@@ -34,7 +35,7 @@ const DndExample = () => {
         }
     };
     useEffect(() => {
-        setData(cardsData)
+        setData(props.cardsData)
     }, [])
     if (!data.length) {
         return <LoadingSkeleton />
@@ -54,21 +55,21 @@ const DndExample = () => {
                                             ref={provided.innerRef}
                                         >
                                             <h2 className="text-center font-bold mb-6 text-gray">{val.title}</h2>
-                                            {
-                                                val.components?.map((component, index) => (
-                                                    <Draggable key={component.id} draggableId={component.id.toString()} index={index}>
-                                                        {
-                                                            (provided) => (
-                                                                <div className="bg-gray-200 mx-1 px-4 py-3 my-3"
-                                                                    {...provided.dragHandleProps}
-                                                                    {...provided.draggableProps}
-                                                                    ref={provided.innerRef}
-                                                                >{component.name}</div>
-                                                            )
-                                                        }
-                                                    </Draggable>
-                                                ))
-                                            }
+                                                {
+                                                    val.components?.map((component, index) => (
+                                                        <Draggable key={component.id} draggableId={component.id.toString()} index={index}>
+                                                            {
+                                                                (provided) => (
+                                                                    <div className="bg-gray-200 mx-1 px-4 py-3 my-3"
+                                                                        {...provided.dragHandleProps}
+                                                                        {...provided.draggableProps}
+                                                                        ref={provided.innerRef}
+                                                                    >{component.name}</div>
+                                                                )
+                                                            }
+                                                        </Draggable>
+                                                    ))
+                                                }
                                             {provided.placeholder}
                                         </div>
                                     )
