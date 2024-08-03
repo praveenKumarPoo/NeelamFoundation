@@ -3,8 +3,6 @@
 // import { NextIntlClientProvider } from 'next-intl';
 //import { getLocale, getMessages } from 'next-intl/server';
 import "./globals.css";
-import { Dialog, DialogPanel } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Inter } from "next/font/google";
 import Header from '../common/Header';
 
