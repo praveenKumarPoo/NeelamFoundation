@@ -13,7 +13,7 @@ interface Cards {
         name: string;
     }[];
 }
-const DndExample = (props) => {
+const DndExample = (props: any) => {
 
     const [data, setData] = useState<Cards[] | []>([])
     const onDragEnd = (result: DropResult) => {

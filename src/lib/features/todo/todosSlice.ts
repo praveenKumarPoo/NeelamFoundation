@@ -4,7 +4,11 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export interface CounterState {
     value: Array<{}>
-    workFlowData: Array<{}>
+    workFlowData: Array<{
+        components: [],
+        id: Number,
+        title: string
+    }>
 }
 
 const initialState: CounterState = {
