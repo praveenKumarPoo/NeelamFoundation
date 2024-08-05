@@ -10,7 +10,11 @@ export default function Workflow() {
   const workFlowData = useAppSelector(state => {
     return state.counter.workFlowData
 });
-  const dispatch = useAppDispatch()
+const [wsConnection, setwsConnection ] = useState<any>()
+  const dispatch = useAppDispatch();
+  const callBackForDargUpdate = (dragChangData: any) => {
+      wsConnection && wsConnection.send && wsConnection.readyState === 1 && wsConnection.send(JSON.stringify(dragChangData));
+    }
   useEffect(() => {
     let wsUrl = 'wss://neelam-websocket.onrender.com'
     const localwsUrl = 'http://localhost:8000'
@@ -28,11 +32,12 @@ export default function Workflow() {
           console.log("Message from server ", event.data);
         }
       });
+      setwsConnection(socket);
 }, [])
 
   return (
     <div>
-      <DndExample cardsData={workFlowData} />
+      <DndExample cardsData={workFlowData} callBackForDargUpdate={callBackForDargUpdate} />
     </div>
   )
 }

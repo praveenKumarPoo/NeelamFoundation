@@ -26,12 +26,14 @@ const DndExample = (props: any) => {
             const [item] = newData[oldDroppableIndex].components.splice(source.index, 1);
             newData[newDroppableIndex].components.splice(destination.index, 0, item);
             setData([...newData]);
+            props.callBackForDargUpdate([...newData])
         } else {
             const newData = [...JSON.parse(JSON.stringify(data))];//shallow copy concept
             const droppableIndex = newData.findIndex(x => x.id == source.droppableId.split("droppable")[1]);
             const [item] = newData[droppableIndex].components.splice(source.index, 1);
             newData[droppableIndex].components.splice(destination.index, 0, item);
             setData([...newData]);
+            props.callBackForDargUpdate([...newData])
         }
     };
     useEffect(() => {

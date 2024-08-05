@@ -2,7 +2,7 @@
 require("babel-polyfill");
 import React, { useState, useEffect } from 'react'
 import { useAppSelector, useAppDispatch, useAppStore } from '../../lib/hooks'
-import { updateCartOrder, createOrder } from '../../lib/features/todo/todosSlice';
+import { updateCartOrder, createOrder, resetToInitialData } from '../../lib/features/todo/todosSlice';
 import Table, { AvatarCell, SelectColumnFilter, StatusPill } from '../../common/RestaurantTable'  // new
 import { formatDistance, differenceInDays, add, getUnixTime, isValid, format } from "date-fns";
 import axios from 'axios'
@@ -58,7 +58,9 @@ function App() {
     });
   }
   useEffect(() => {
+    dispatch(resetToInitialData([]))
     getData();
+
   }, [])
 
 

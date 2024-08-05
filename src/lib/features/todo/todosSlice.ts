@@ -55,10 +55,35 @@ export const counterSlice = createSlice({
         },
         updateOrder: (state, action) => {
             state.workFlowData = action.payload
-        }
+        },
+        resetToInitialData: (state, action) => {
+            state.value = action.payload;
+            state.workFlowData = [
+                {
+                    id: 0,
+                    title: "Order Taken",
+                    components: [
+                    ]
+                },
+                {
+                    id: 1,
+                    title: "Kitchen inprogress",
+                    components: [
+                    ]
+                },
+                {
+                    id: 2,
+                    title: "Order Ready",
+                    components: [
+                    ]
+                }
+        
+            ]
+        },
     }
 })
 
-export const { increment, decrement, incrementByAmount, updateCartOrder, createOrder, updateOrder } = counterSlice.actions;
+export const { increment, resetToInitialData,
+    decrement, incrementByAmount, updateCartOrder, createOrder, updateOrder } = counterSlice.actions;
 
 export default counterSlice.reducer;
