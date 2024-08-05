@@ -5,6 +5,8 @@ import { useAppSelector, useAppDispatch, useAppStore } from '../../lib/hooks'
 import { updateCartOrder, createOrder } from '../../lib/features/todo/todosSlice';
 import Table, { AvatarCell, SelectColumnFilter, StatusPill } from '../../common/RestaurantTable'  // new
 import { formatDistance, differenceInDays, add, getUnixTime, isValid, format } from "date-fns";
+import axios from 'axios'
+
 
 const modelData = (mData: {}[]) => {
   return mData.map((row: { [key: string]: any }) => {
@@ -17,9 +19,13 @@ const modelData = (mData: {}[]) => {
   })
 }
 
-let baseUrl = `https://chipper-toffee-e75e3f.netlify.app/.netlify/functions/api`
-let localUrl = `http://localhost:8888/.netlify/functions/api`;
-baseUrl = localUrl;
+// let baseUrl = `https://chipper-toffee-e75e3f.netlify.app/.netlify/functions/api`
+// let localUrl = `http://localhost:8888/.netlify/functions/api`;
+// baseUrl = localUrl;
+
+let wsUrl = 'https://neelam-websocket.onrender.com';
+let  localwsUrl = 'http://localhost:8000';
+//wsUrl=localUrl;
 
 
 function App() {
@@ -29,7 +35,7 @@ function App() {
   const dispatch = useAppDispatch()
 
   const getData = async () => {
-    await fetch(`${baseUrl}/restaurantList`).then((response) => response.json()).then((data) => {
+    await axios.get(`${wsUrl}/restaurantList`).then((response) => response.data).then((data) => {
       let totalList: [] = [];
       data[0]["categorys"].map((category:[])=>category).map((menuItem:{"menu-items":[]})=>menuItem['menu-items']).map((listOfItem:[])=>{ 
         listOfItem.map((eachItem: {'sub-items':[]})=>{

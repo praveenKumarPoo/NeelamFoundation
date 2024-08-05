@@ -12,8 +12,10 @@ export default function Workflow() {
 });
   const dispatch = useAppDispatch()
   useEffect(() => {
-    // const prod = https://neelam-websocket.onrender.com
-      const URL='wss://neelam-websocket.onrender.com/orderStatus'
+    let wsUrl = 'wss://neelam-websocket.onrender.com'
+    const localwsUrl = 'http://localhost:8000'
+    //wsUrl = localwsUrl
+      const URL=`${wsUrl}/orderStatus`;
       const socket = new WebSocket(URL);
       socket.addEventListener("open", (event) => {
         socket.send(JSON.stringify(workFlowData));
