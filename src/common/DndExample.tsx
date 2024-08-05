@@ -36,7 +36,7 @@ const DndExample = (props: any) => {
     };
     useEffect(() => {
         setData(props.cardsData)
-    }, [])
+    }, [props.cardsData])
     if (!data.length) {
         return <LoadingSkeleton />
     }

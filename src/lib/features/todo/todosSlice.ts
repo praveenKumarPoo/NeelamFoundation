@@ -53,9 +53,12 @@ export const counterSlice = createSlice({
         createOrder: (state, action) => {
             state.workFlowData[0]['components'] = action.payload
         },
+        updateOrder: (state, action) => {
+            state.workFlowData = action.payload
+        }
     }
 })
 
-export const { increment, decrement, incrementByAmount, updateCartOrder, createOrder } = counterSlice.actions;
+export const { increment, decrement, incrementByAmount, updateCartOrder, createOrder, updateOrder } = counterSlice.actions;
 
 export default counterSlice.reducer;
