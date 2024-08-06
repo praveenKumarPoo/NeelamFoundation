@@ -13,7 +13,8 @@ const TamilTransulation = {
         "briyani_description": "பிரியாணி என்பது வெறும் உணவு மட்டுமல்ல; இது ஒரு தட்டில் ஒரு கொண்டாட்டம். இந்த காஸ்ட்ரோனமிக் பயணத்தைத் தொடங்கும்போது, ஒவ்வொரு நறுமணக் கடியின் சாரத்தையும் கைப்பற்றும் வசீகரிக்கும் தலைப்புகள் மூலம் பிரியாணியின் உலகத்தை ஆராய்வோம்.",
         "workflow": "Work flow",
         "home": "Home",
-        "restaurant": "Restaurant App"
+        "restaurant": "Restaurant App",
+        "orderstatus": "Order Status"
     }
 }
 const navigation = [
@@ -23,6 +24,7 @@ const navigation = [
     { name: 'Registration', href: '/registration' },
     { name: 'workflow', href: '/workflow' },
     { name: 'restaurant', href: '/restaurant' },
+    { name: 'orderstatus', href: '/orderstatus' },
 ]
 
 function Header() {

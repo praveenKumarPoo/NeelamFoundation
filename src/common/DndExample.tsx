@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 import { Draggable, DropResult, Droppable } from "react-beautiful-dnd";
 import LoadingSkeleton from "./LoadingSkeleton";
 import { DndContext } from "../context/DndContext";
+import CountdownTimer from './Timercomponent'
 interface Cards {
     id: number;
     title: string;
     components: {
         id: number;
         name: string;
+        quantity: string;
     }[];
 }
 const DndExample = (props: any) => {
@@ -57,21 +59,31 @@ const DndExample = (props: any) => {
                                             ref={provided.innerRef}
                                         >
                                             <h2 className="text-center font-bold mb-6 text-gray">{val.title}</h2>
+                                            <div className="p-5 transition ease-in-out delay-150 bg-blue-500 duration-300 border-white border border-dashed">
                                                 {
                                                     val.components?.map((component, index) => (
                                                         <Draggable key={component.id} draggableId={component.id.toString()} index={index}>
                                                             {
                                                                 (provided) => (
-                                                                    <div className="bg-gray-200 mx-1 px-4 py-3 my-3"
+                                                                    <div className="bg-gray-200 mx-1 px-1 py-1 my-3 text-xs font-medium flex"
                                                                         {...provided.dragHandleProps}
                                                                         {...provided.draggableProps}
                                                                         ref={provided.innerRef}
-                                                                    >{component.name}</div>
+                                                                    >   
+                                                                    <span className="relative flex h-3 w-3 mr-1">
+                                                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300 opacity-75"></span>
+                                                                    <span className="relative inline-flex rounded-full h-3 w-3 bg-green-400"></span>
+                                                                </span>
+                                                                        <div className="flex-1">{`${component.name} : ${component.quantity}`}</div>
+                                                                        <div className="flex-none">
+                                                                            <CountdownTimer /> </div>
+                                                                    </div>
                                                                 )
                                                             }
                                                         </Draggable>
                                                     ))
                                                 }
+                                            </div>
                                             {provided.placeholder}
                                         </div>
                                     )

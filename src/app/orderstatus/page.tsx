@@ -3,7 +3,7 @@ require("babel-polyfill");
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAppSelector, useAppDispatch, useAppStore } from '../../lib/hooks'
-import { updateCartOrder, createOrder, resetToInitialData } from '../../lib/features/todo/todosSlice';
+import { updateCartOrder, createOrder, resetToInitialData, updateOrder } from '../../lib/features/todo/todosSlice';
 import Table, { AvatarCell, SelectColumnFilter, StatusPill } from '../../common/RestaurantTable'  // new
 import { formatDistance, differenceInDays, add, getUnixTime, isValid, format } from "date-fns";
 import axios from 'axios'
@@ -26,7 +26,7 @@ const modelData = (mData: {}[]) => {
 
 let wsUrl = 'https://neelam-websocket.onrender.com';
 let localwsUrl = 'http://localhost:8000';
-//wsUrl = localwsUrl;
+wsUrl = localwsUrl;
 
 
 function App() {
@@ -38,26 +38,9 @@ function App() {
   const dispatch = useAppDispatch()
 
   const getData = async () => {
-    await axios.get(`${wsUrl}/restaurantList`).then((response) => response.data).then((data) => {
-      let totalList: [] = [];
-      data[0]["categorys"].map((category: []) => category).map((menuItem: { "menu-items": [] }) => menuItem['menu-items']).map((listOfItem: []) => {
-        listOfItem.map((eachItem: { 'sub-items': [] }) => {
-          eachItem['sub-items'].map((finalProdct) => {
-            totalList.push(finalProdct)
-          })
-        })
-      });
-      console.log(totalList)
-      let CloneData = [...totalList].map((item: { name: string, cuisine_name: string, image: { publicUrl: {} } }) => {
-        return {
-          category_type: item.name,
-          maincategory_type: item.cuisine_name,
-          ...item,
-          imgUrl: item.image ? item.image.publicUrl : ''
-        }
-      });
-      console.log(CloneData)
-      setData(CloneData);
+    await axios.get(`${wsUrl}/currentOrders`).then((response) => response.data).then((data) => {
+      console.log(data)
+      setData(data);
     });
   }
   useEffect(() => {
@@ -102,18 +85,17 @@ function App() {
   const confirmOrder = () => {
     finalSubmit(orderData)
   }
-
   const columns = React.useMemo(() => {
     //return ["regno:", "name", "phonenumber", "feeduedate"].map((columnName) => {
     return [
       {
         Header: "Name",
-        accessor: 'category_name',
+        accessor: 'orderId',
         Cell: AvatarCell,
         imgAccessor: "imgUrl",
-        emailAccessor: "name",
+        emailAccessor: "totalOrderPrice",
       },
-      ...["price", "category_type", "cuisine_name"].map((columnName) => {
+      ...["orderNameQuantity", "totalOrderPrice", "numberOfItems"].map((columnName) => {
         return {
           Header: columnName,
           accessor: columnName
@@ -121,9 +103,9 @@ function App() {
       }), {
         Header: 'Action',
         accessor: 'action',
-        Cell: (props: any) => <span onClick={() => handleShow(props)}
+        Cell: (props: any) => <span onClick={() => alert(JSON.stringify(props.row.original))}
           className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
-          Add Item</span>,
+          show Details</span>,
       }]
   }, []);
 
@@ -139,7 +121,7 @@ function App() {
             Confirm Order
           </button>
         </div>
-        <div>
+        <div> 
           <Table columns={columns} data={data} />
         </div>
       </main>
